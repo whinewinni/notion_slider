@@ -1,184 +1,182 @@
-<!DOCTYPE html>
 <html lang="ko">
-	<head>
-		<meta charset="utf-8">
-		<title>Winni's</title>
+<head>
+	<meta charset="utf-8">
+	<title>Winni's</title>
+	
+	<link rel="stylesheet" href="css/reset.css">
+	<style>
+		#slide{
+			width: 600px;
+			height: 600px;
+			margin: 100px auto;
+			border: 3px dashed silver;
+			position: relative;
+			overflow: hidden;
+		}
+		#slide ul{
+			width: 6600px
+		}
+		#slide ul li{
+			float: left;
+			width: 600px;
+			height: 600px;
+			text-align: center;
+			font-size: 150px;
+			color: white;
+			line-height: 600px
+		} 
+		button{
+			position:absolute;
+			width: 60px;
+			height: 50px;
+			background-color: transparent;
+			left: 50%;
+			top:350px 
+		}
+		button:nth-of-type(1) {
+			margin-left: -400px;
+		}
+		button:nth-of-type(2) {
+			margin-left:350px;
+		}
 		
-		<link rel="stylesheet" href="css/reset.css">
-		<style>
-			#slide{
-				width: 600px;
-				height: 600px;
-				margin: 100px auto;
-				border: 3px dashed silver;
-				position: relative;
-				overflow: hidden;
-			}
-			#slide ul{
-				width: 6600px
-			}
-			#slide ul li{
-				float: left;
-				width: 600px;
-				height: 600px;
-				text-align: center;
-				font-size: 150px;
-				color: white;
-				line-height: 600px
-			} 
-			button{
-				position:absolute;
-				width: 60px;
-				height: 50px;
-				background-color: transparent;
-				left: 50%;
-				top:350px 
-			}
-			button:nth-of-type(1) {
-				margin-left: -400px;
-			}
-			button:nth-of-type(2) {
-				margin-left:350px;
+		#slide ol {
+			position: absolute;
+			bottom: 20px;
+			left: 50%;
+			transform:translateX(-50%);
+		}
+		#slide ol li{
+			width: 20px;
+			height: 20px;
+			float: left;
+			margin-left: 10px;
+			border-radius:50%;
+			border: 3px solid silver;
+			box-sizing: border-box;
+		} 
+		#slide ol li:first-child {
+			margin-left: 0
+		}
+		#slide ol li.view{
+			background-color: silver;
+			border: none;
+		}
+		
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+			
+			time_slide();
+			add_view_class(0);
+			
+			
+			var color=["#96C1C3", "#FEF0C1", "#C3DAF9", "#FCB6D2", "#C59CD0", 
+				"#5D7F8C", "#76A1A6", "#F2CAA7", "#F5F1EF", "#DA8783", "#96C1C3"];
+			
+			for (var i = 0; i <= color.length; i++) {
+				$("ul li").eq(i).css({backgroundColor:color[i]});
 			}
 			
-			#slide ol {
-				position: absolute;
-				bottom: 20px;
-				left: 50%;
-				transform:translateX(-50%);
-			}
-			#slide ol li{
-				width: 20px;
-				height: 20px;
-				float: left;
-				margin-left: 10px;
-				border-radius:50%;
-				border: 3px solid silver;
-				box-sizing: border-box;
-			} 
-			#slide ol li:first-child {
-				margin-left: 0
-			}
-			#slide ol li.view{
-				background-color: silver;
-				border: none;
-			}
 			
-		</style>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script>
-			$(function() {
-				
-				time_slide();
-				add_view_class(0);
-				
-				
-				var color=["#96C1C3", "#FEF0C1", "#C3DAF9", "#FCB6D2", "#C59CD0", 
-					"#5D7F8C", "#76A1A6", "#F2CAA7", "#F5F1EF", "#DA8783", "#96C1C3"];
-				
-				for (var i = 0; i <= color.length; i++) {
-					$("ul li").eq(i).css({backgroundColor:color[i]});
-				}
-				
-				
-				var slide_num=0;
-				
-				function right_move() {
-					slide_num++;
-					if (slide_num <= $("#slide ul li").length-1 ) {
-						$("#slide ul").animate({marginLeft:-600*slide_num});
-						add_view_class(slide_num);
-						
-						if (slide_num == $("#slide ul li").length-1) {
-							add_view_class(0);
-						}
-						
-					}else  {
-						$("#slide ul").css({marginLeft:0});
-						$("#slide ul").animate({marginLeft:-600});
-						slide_num=1;
-						add_view_class(slide_num);
-					}
-				}
-				
-				function time_slide() {
-					interval_timer = setInterval(function() {
-						right_move();
-					}, 500);
-				}
-				
-				$("button").hover(function() {
-					clearInterval(interval_timer);
-				}, function() {
-					right_move();
-				});
-				
-				$("button").eq(1).click(function() {
-					right_move();
-				}); //Right Button Event
-				
-				
-				$("button").eq(0).click(function() {
-					slide_num--;
+			var slide_num=0;
+			
+			function right_move() {
+				slide_num++;
+				if (slide_num <= $("#slide ul li").length-1 ) {
+					$("#slide ul").animate({marginLeft:-600*slide_num});
+					add_view_class(slide_num);
 					
-					if (slide_num < 0) {
-						var end_size=$("#slide ul").width()-$("#slide ul li").width(); //맨끝으로 이동
-						var end_left_move=end_size-$("#slide ul li").width();
-						
-						$("#slide ul").css({marginLeft:-end_size});
-						$("#slide ul").animate({marginLeft:-end_left_move});
-						slide_num=9;
-						
-						add_view_class(slide_num);
-					}else {
-						$("#slide ul").animate({marginLeft:-600*slide_num});
-						add_view_class(slide_num);
+					if (slide_num == $("#slide ul li").length-1) {
+						add_view_class(0);
 					}
-				});
-				
-				
-				/* function remove_view_class(indicator_num) {
-				} */
-				function add_view_class(indicator_num) {
-					$("#slide ol li").removeClass("view")
-					.eq(indicator_num).addClass("view");
+					
+				}else  {
+					$("#slide ul").css({marginLeft:0});
+					$("#slide ul").animate({marginLeft:-600});
+					slide_num=1;
+					add_view_class(slide_num);
 				}
-				
-			});
-		</script>
-	</head>
-	<body>
-	
-		<div id="slide">
-			<ul>
-				<li>1</li>
-				<li>2</li>
-				<li>3</li>
-				<li>4</li>
-				<li>5</li>
-				<li>6</li>
-				<li>7</li>
-				<li>8</li>
-				<li>9</li>
-				<li>10</li>
-				<li>11</li>
-			</ul>
+			}
 			
-			<ol>
-				<li><span>1</span></li>
-				<li><span>2</span></li>
-				<li><span>3</span></li>
-				<li><span>4</span></li>
-				<li><span>5</span></li>
-				<li><span>6</span></li>
-				<li><span>7</span></li>
-				<li><span>8</span></li>
-				<li><span>9</span></li>
-				<li><span>10</span></li>
-			</ol>
-		</div>
-			<button>Left</button>
-			<button>Right</button>
-	
-	</body>
-</html>
+			function time_slide() {
+				interval_timer = setInterval(function() {
+					right_move();
+				}, 500);
+			}
+			
+			$("button").hover(function() {
+				clearInterval(interval_timer);
+			}, function() {
+				right_move();
+			});
+			
+			$("button").eq(1).click(function() {
+				right_move();
+			}); //Right Button Event
+			
+			
+			$("button").eq(0).click(function() {
+				slide_num--;
+				
+				if (slide_num < 0) {
+					var end_size=$("#slide ul").width()-$("#slide ul li").width(); //맨끝으로 이동
+					var end_left_move=end_size-$("#slide ul li").width();
+					
+					$("#slide ul").css({marginLeft:-end_size});
+					$("#slide ul").animate({marginLeft:-end_left_move});
+					slide_num=9;
+					
+					add_view_class(slide_num);
+				}else {
+					$("#slide ul").animate({marginLeft:-600*slide_num});
+					add_view_class(slide_num);
+				}
+			});
+			
+			
+			/* function remove_view_class(indicator_num) {
+			} */
+			function add_view_class(indicator_num) {
+				$("#slide ol li").removeClass("view")
+				.eq(indicator_num).addClass("view");
+			}
+			
+		});
+	</script>
+</head>
+<body>
+
+	<div id="slide">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+			<li>11</li>
+		</ul>
+		
+		<ol>
+			<li><span>1</span></li>
+			<li><span>2</span></li>
+			<li><span>3</span></li>
+			<li><span>4</span></li>
+			<li><span>5</span></li>
+			<li><span>6</span></li>
+			<li><span>7</span></li>
+			<li><span>8</span></li>
+			<li><span>9</span></li>
+			<li><span>10</span></li>
+		</ol>
+	</div>
+		<button>Left</button>
+		<button>Right</button>
+
+</body>
