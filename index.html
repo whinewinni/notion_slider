@@ -6,24 +6,24 @@
 	<link rel="stylesheet" href="css/reset.css">
 	<style>
 		#slide{
-			width: 500px;
-			height: 400px;
+			width: 600px;
+			height: 600px;
 			margin: 100px auto;
 			border: 3px dashed silver;
 			position: relative;
 			overflow: hidden;
 		}
 		#slide ul{
-			width: 5500px
+			width: 6600px
 		}
 		#slide ul li{
 			float: left;
-			width: 500px;
-			height: 400px;
+			width: 600px;
+			height: 600px;
 			text-align: center;
 			font-size: 150px;
 			color: white;
-			line-height: 500px
+			line-height: 600px
 		} 
 		button{
 			position:absolute;
@@ -85,7 +85,7 @@
 			function right_move() {
 				slide_num++;
 				if (slide_num <= $("#slide ul li").length-1 ) {
-					$("#slide ul").animate({marginLeft:-500*slide_num});
+					$("#slide ul").animate({marginLeft:-600*slide_num});
 					add_view_class(slide_num);
 					
 					if (slide_num == $("#slide ul li").length-1) {
@@ -94,7 +94,7 @@
 					
 				}else  {
 					$("#slide ul").css({marginLeft:0});
-					$("#slide ul").animate({marginLeft:-500});
+					$("#slide ul").animate({marginLeft:-600});
 					slide_num=1;
 					add_view_class(slide_num);
 				}
@@ -180,5 +180,3 @@
 		<button>Right</button>
 
 </body>
-
-
