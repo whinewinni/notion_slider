@@ -85,7 +85,7 @@
 			function right_move() {
 				slide_num++;
 				if (slide_num <= $("#slide ul li").length-1 ) {
-					$("#slide ul").animate({marginLeft:-600*slide_num});
+					$("#slide ul").animate({marginLeft:-500*slide_num});
 					add_view_class(slide_num);
 					
 					if (slide_num == $("#slide ul li").length-1) {
@@ -94,7 +94,7 @@
 					
 				}else  {
 					$("#slide ul").css({marginLeft:0});
-					$("#slide ul").animate({marginLeft:-600});
+					$("#slide ul").animate({marginLeft:-500});
 					slide_num=1;
 					add_view_class(slide_num);
 				}
@@ -103,7 +103,7 @@
 			function time_slide() {
 				interval_timer = setInterval(function() {
 					right_move();
-				}, 500);
+				}, 1000);
 			}
 			
 			$("button").hover(function() {
@@ -180,4 +180,5 @@
 		<button>Right</button>
 
 </body>
+
 
